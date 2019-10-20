@@ -3,7 +3,7 @@ import os
 
 class bord:
     def __init__(self): 
-        self.__veld_status = {"1":"", "2":"", "3":"", "4":"", "5":"", "6":"", "7":"", "8":"", "9":""}
+        self.__veld_status = {1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"", 9:""}
         self.teken()
 
     def herstel(self): 
@@ -11,11 +11,11 @@ class bord:
 
     def teken(self): 
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(" " + self.__veld_status["1"] + " | " + self.__veld_status["2"] + " | " + self.__veld_status["3"])
+        print(" " + self.__veld_status[1] + " | " + self.__veld_status[2] + " | " + self.__veld_status[3])
         print("--------")
-        print(" " + self.__veld_status["4"] + " | " + self.__veld_status["5"] + " | " + self.__veld_status["6"])
+        print(" " + self.__veld_status[4] + " | " + self.__veld_status[5] + " | " + self.__veld_status[6])
         print("--------")
-        print(" " + self.__veld_status["7"] + " | " + self.__veld_status["8"] + " | " + self.__veld_status["9"])
+        print(" " + self.__veld_status[7] + " | " + self.__veld_status[8] + " | " + self.__veld_status[9])
 
     def zet_veld(self, veld: int, speler_symbool: str):
         if (self.__veld_status[veld]== ""):
@@ -27,23 +27,23 @@ class bord:
     
     def __is_er_een_winnaar(self): 
         # Controleer of er drie op een rij zitten in een regel
-        if (self.__veld_status["1"] == self.__veld_status["2"] == self.__veld_status["3"] != ""):
+        if (self.__veld_status[1] == self.__veld_status[2] == self.__veld_status[3] != ""):
             return True
-        if (self.__veld_status["4"] == self.__veld_status["5"] == self.__veld_status["6"] != ""):
+        if (self.__veld_status[4] == self.__veld_status[5] == self.__veld_status[6] != ""):
             return True
-        elif (self.__veld_status["7"] == self.__veld_status["8"] == self.__veld_status["9"] != ""):
+        elif (self.__veld_status[7] == self.__veld_status[8] == self.__veld_status[9] != ""):
             return True
         # Controleer of er drie op een rij zitten in een kolom
-        if (self.__veld_status["1"] == self.__veld_status["4"] == self.__veld_status["7"] != ""):
+        if (self.__veld_status[1] == self.__veld_status[4] == self.__veld_status[7] != ""):
             return True
-        if (self.__veld_status["2"] == self.__veld_status["5"] == self.__veld_status["8"] != ""):
+        if (self.__veld_status[2] == self.__veld_status[5] == self.__veld_status[8] != ""):
             return True
-        elif (self.__veld_status["3"] == self.__veld_status["6"] == self.__veld_status["9"] != ""):
+        elif (self.__veld_status[3] == self.__veld_status[6] == self.__veld_status[9] != ""):
             return True
         # Controleer of er drie op een rij zitten in een diagonaal
-        elif (self.__veld_status["1"] == self.__veld_status["5"] == self.__veld_status["9"] != ""):
+        elif (self.__veld_status[1] == self.__veld_status[5] == self.__veld_status[9] != ""):
             return True
-        elif (self.__veld_status["3"] == self.__veld_status["5"] == self.__veld_status["7"] != ""):
+        elif (self.__veld_status[3] == self.__veld_status[5] == self.__veld_status[7] != ""):
             return True   
         else: 
             return False    
@@ -84,7 +84,7 @@ class speler:
         while not(valide_zet): 
             veld = input("Welk veld wil je spelen speler {} (1-9)? >> ".format(self.__symbool))
             if (self.__valideer_input(veld)): 
-                if (bord.zet_veld(veld, self.__symbool)):
+                if (bord.zet_veld(int(veld), self.__symbool)):
                     valide_zet = True
                 else: #er is een veld gekozen die al gekozen is
                     print("Het gekozen veld -" + veld + "- is al bezet.") 
