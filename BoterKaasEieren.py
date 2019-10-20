@@ -1,5 +1,6 @@
 import os 
 
+
 class bord:
     def __init__(self): 
         self.__veld_status = {"1":"", "2":"", "3":"", "4":"", "5":"", "6":"", "7":"", "8":"", "9":""}
@@ -48,10 +49,12 @@ class bord:
             return False    
 
     def __is_gelijkspel(self):
-        if not("" in self.__veld_status):
-            return True
-        else: 
-            return False
+        gelijkspel = True
+        for x in self.__veld_status:
+            if self.__veld_status[x] == "":
+                gelijkspel = False
+                break
+        return gelijkspel
 
     def zet_mogelijk(self):
         if (self.__is_er_een_winnaar()):
@@ -68,7 +71,7 @@ class speler:
     def __valideer_input(self, veld):
         try: 
             veld = int(veld)
-            if(veld >= 1) or (veld <=9): 
+            if(veld >= 1) and (veld <=9): 
                 return True
         except:
             return False 
@@ -96,26 +99,6 @@ class spel:
         self.__bord = bord()
     
     def start(self):
-        doorspelen = True
-        while doorspelen:
-            zet_mogelijk = True
-            while zet_mogelijk:
-                self.__speler1.doe_zet(self.__bord)
-                zet_mogelijk, status = self.__bord.zet_mogelijk()
-                if zet_mogelijk: 
-                    self.__speler2.doe_zet(self.__bord)
-                    zet_mogelijk, status = self.__bord.zet_mogelijk()
-            if (status == "winnaar"): 
-                print("Speler {} is de winnaar!!".format(self.__speler1.geef_symbool()))
-            elif (status == "gelijkspel"):
-                print("Het is een gelijkspel!")
-            antwoord = input("Nog een potje? (J/N) >> ")
-            if (antwoord.upper() == "J"): 
-                self.__bord.herstel()
-            else:
-                doorspelen = False
-
-    def start2(self):
         #blijf het spel spelen tot dat gebruiker niet meer verder wil. 
         doorspelen = True 
         while doorspelen: 
@@ -133,10 +116,10 @@ class spel:
                     if (antwoord.upper() == "J"): 
                         self.__bord.herstel()
                     else:
-                        doorspelen = False              
-
+                        doorspelen = False
+                    break              
 
 
 s = spel()
-s.start2()
+s.start()
 
