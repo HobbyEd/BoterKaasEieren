@@ -115,6 +115,28 @@ class spel:
             else:
                 doorspelen = False
 
+    def start2(self):
+        #blijf het spel spelen tot dat gebruiker niet meer verder wil. 
+        doorspelen = True 
+        while doorspelen: 
+            #maak een lijst waarin speler 1 en 2 10 keer voorkomen. (maximaal aantal)
+            spelerslijst = [self.__speler1, self.__speler2] * 5 
+            for speler in spelerslijst: 
+                speler.doe_zet(self.__bord)
+                zet_mogelijk, status = self.__bord.zet_mogelijk()
+                if zet_mogelijk == False :
+                    if (status == "winnaar"): 
+                        print("Speler {} is de winnaar!!".format(speler.geef_symbool()))
+                    elif (status == "gelijkspel"):
+                        print("Het is een gelijkspel!")
+                    antwoord = input("Nog een potje? (J/N) >> ")
+                    if (antwoord.upper() == "J"): 
+                        self.__bord.herstel()
+                    else:
+                        doorspelen = False              
+
+
+
 s = spel()
-s.start()
+s.start2()
 
